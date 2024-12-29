@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2024 at 12:44 PM
+-- Generation Time: Dec 29, 2024 at 10:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `if0_36887940_dbparkir`
+-- Database: `dbterbit`
 --
 
 -- --------------------------------------------------------
@@ -64,16 +64,6 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `jenis`
---
-
-CREATE TABLE `jenis` (
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `jobs`
 --
 
@@ -105,16 +95,6 @@ CREATE TABLE `job_batches` (
   `created_at` int(11) NOT NULL,
   `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kampus`
---
-
-CREATE TABLE `kampus` (
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -208,7 +188,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('lkYNCCp4GZXAc6MCP93vmRzF16sP1JYUYtIRCxxO', 2, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiaDNjZ09LWVNBaFE3YUN0R2ZzM3VIWlBJemNRR3FDTnBCc3NLTGVYeSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sYXBvcmFuL3Nob3ciO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToyO30=', 1735289974);
+('lQyL5Z1DQ77iGTqDRVA7RQZbvhU9nLe5gv9hii0E', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidHVtTlRtaEppcW5kVVlLV3ZsS2NidVFkbmJ5SWtHNTRTbk5MWGF1ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=', 1735307622),
+('txBHTiNVRmDNwdTzrpfy1ECN3KW1yRmrpqcuwiTx', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiYUdiOWpmYmFhYWhrdHZ1dGU1djdJVWhpWm45dUw0V3JVZDdUUkFnMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1735345669),
+('ykL44fQdF5ESWQO5k2BbjouvcI2HQqUvFJHmImst', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQnhqSVdrSkZaUm91TTJGNWR2SG9yT0xHeDRmbzdidnVLV1NCdnZlTSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sYXBvcmFuL3Nob3ciO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=', 1735452064);
 
 -- --------------------------------------------------------
 
@@ -233,8 +215,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `role`) VALUES
-(2, 'admin', 'admin345@bookmail.com', NULL, '$2y$12$Ui6n3RDJ0nZQyfVJ6o8OHuff6oXhJLDEc.6adl4KpGmNxcYx4ekJG', NULL, '2024-12-26 20:31:38', '2024-12-26 20:31:38', 'admin'),
-(3, 'khalid', 'khalidsai@gmail.com', NULL, '$2y$12$nqsEcD49CBCjETKdIvZ6CeTxcAU4evbpH74850SZ4PHwav1G5fEQK', NULL, '2024-12-27 01:16:03', '2024-12-27 01:16:03', 'user');
+(4, 'Budi', 'budi@nurulfikri.ac.id', NULL, '$2y$12$NWhbtgm7UlgnLY3DL9qlpum/1tAyc1J.sGYJOz9j.NZ5gfkQvBXBi', NULL, '2024-12-27 06:22:52', '2024-12-27 06:22:52', 'dosen'),
+(5, 'Khalid', 'khalidsai@student.nurulfikri.ac.id', NULL, '$2y$12$ru8INYKzHCzTLA0lQvekm.tAxn0XK2Abq74BsyOwtnTYunrWDq0/.', NULL, '2024-12-27 06:23:54', '2024-12-27 06:23:54', 'mahasiswa');
 
 --
 -- Indexes for dumped tables
@@ -260,12 +242,6 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
--- Indexes for table `jenis`
---
-ALTER TABLE `jenis`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -276,12 +252,6 @@ ALTER TABLE `jobs`
 -- Indexes for table `job_batches`
 --
 ALTER TABLE `job_batches`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kampus`
---
-ALTER TABLE `kampus`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -335,22 +305,10 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `jenis`
---
-ALTER TABLE `jenis`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `kampus`
---
-ALTER TABLE `kampus`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `laporan`
@@ -374,7 +332,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
