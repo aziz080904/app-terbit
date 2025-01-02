@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ManajemenController;
 use App\Http\Controllers\TimerController;
+use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\CarbonController;
 
 
 // ini awal script login breeze
@@ -39,6 +41,14 @@ Route::middleware('auth')->group(function () {
     Route::put('/manajemen/{id}', [ManajemenController::class, 'update'])->name('manajemen.update');
     Route::delete('/manajemen/{id}', [ManajemenController::class, 'destroy'])->name('manajemen.destroy');
     });
+
+    //routing notifikasi jadwal
+    Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');  // Menampilkan daftar jadwal
+    Route::post('/jadwals', [JadwalController::class, 'store'])->name('jadwals.store');  // Menambahkan jadwal baru
+    Route::delete('/jadwals/{id}', [JadwalController::class, 'destroy'])->name('jadwals.destroy'); // Menghapus jadwal
+    Route::get('/jadwals/check-upcoming', [JadwalController::class, 'checkUpcomingJadwals'])->name('jadwals.checkUpcoming');
+    Route::get('/check-jadwals', [CarbonController::class, 'checkUpcomingJadwals'])->name('check.jadwals');
+
 
     require __DIR__.'/auth.php';
 

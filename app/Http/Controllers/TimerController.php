@@ -9,7 +9,7 @@ class TimerController extends Controller
 {
     //
     public function show(){
-        $list_kampus = Timer::all();
+        // $list_timer = Timer::all();
         return view('timer.show');
     }
 }

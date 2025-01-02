@@ -66,6 +66,15 @@
                   </a>
               </li>
               <li class="nav-item">
+              <a style="color: black;" href="{{ route('jadwals.index') }}" class="nav-link">
+                  <i class="nav-icon fas fa-calendar-alt"></i> <!-- Ganti ikon dengan calendar -->
+                  <p>
+                      Jadwal Bimbingan
+                  </p>
+              </a>
+          </li>
+
+              <li class="nav-item">
                   <a style="color: black;" href="{{ url('timer/show') }}" class="nav-link">
                       <i class="nav-icon fas fa-bullseye"></i> <!-- Ganti ikon dengan bullseye -->
                       <p>
@@ -132,10 +141,11 @@
               </ul>
           </li> -->
           <li class="nav-item">
-              <a style="color: black;" href="" class="nav-link">
-                  <i class="nav-icon fas fa-user"></i>
-                  <p> Logout </p>
-              </a>  
+              <a style="color: black;" href="{{ route('logout') }}" class="nav-link"
+            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="nav-icon fas fa-user"></i>Logout</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+        </form>
           </li>
         </ul>
       </nav>

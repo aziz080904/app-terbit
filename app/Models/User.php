@@ -54,4 +54,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Manajemen::class);
     }
+
+    public function jadwals()
+    {
+        return $this->hasMany(Jadwal::class, 'user_id'); // Kolom user_id di tabel jadwal
+    }
+
 }
