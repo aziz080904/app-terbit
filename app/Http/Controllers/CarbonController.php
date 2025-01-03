@@ -13,17 +13,17 @@ class CarbonController extends Controller
     {
         // Ambil jadwal yang waktunya dalam 2 jam ke depan
         $jadwals = Jadwal::where('waktu', '>', Carbon::now())
-                         ->where('waktu', '<', Carbon::now()->addHours(10))
+                         ->where('waktu', '<', Carbon::now()->addHours(2))
                          ->get();
 
         if ($jadwals->isEmpty()) {
-            return redirect()->route('jadwals.index')->with('info', 'Tidak ada jadwal dalam 10 jam ke depan.');
+            return redirect()->route('jadwals.index')->with('info', 'Tidak ada jadwal dalam 2 jam ke depan.');
         }
 
         foreach ($jadwals as $jadwal) {
             // Buat notifikasi untuk setiap jadwal yang akan datang
             Notification::create([
-                'message' => "Pengingat: Jadwal '{$jadwal->judul}' akan dimulai dalam 10 jam.",
+                'message' => "Pengingat: Jadwal '{$jadwal->judul}' akan dimulai dalam 2 jam.",
                 'icon' => 'fas fa-clock',
                 'is_read' => false,
                 'link' => route('jadwals.index'),

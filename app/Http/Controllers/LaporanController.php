@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Laporan;
-use App\Models\Jenis;
 
 class LaporanController extends Controller
 {
@@ -61,7 +60,13 @@ class LaporanController extends Controller
     public function view($id)
     {
         $laporan = Laporan::find($id);
-        return view('laporan.view',['laporan'=>$laporan]);
+
+        // Jika laporan tidak ditemukan, tampilkan halaman 404
+        if (!$laporan) {
+            abort(404, 'Laporan tidak ditemukan');
+        }
+
+        return view('laporan.view', ['laporan' => $laporan]);
     }
 
     public function destroy($id): RedirectResponse

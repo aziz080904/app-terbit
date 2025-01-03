@@ -70,12 +70,12 @@ class JadwalController extends Controller
     {
         // Ambil jadwal yang akan datang dalam 2 jam
         $jadwals = Jadwal::where('waktu', '>', Carbon::now())
-                         ->where('waktu', '<', Carbon::now()->addHours(10))
+                         ->where('waktu', '<', Carbon::now()->addHours(2))
                          ->get();
 
         // Jika ada jadwal dalam 2 jam, tampilkan pesan alert
         if ($jadwals->isNotEmpty()) {
-            $message = 'Ada jadwal yang akan segera dimulai dalam 10 jam:';
+            $message = 'Ada jadwal yang akan segera dimulai dalam 2 jam:';
             foreach ($jadwals as $jadwal) {
                 $message .= "\n- {$jadwal->judul} pada {$jadwal->waktu->format('d-m-Y H:i')}";
             }
