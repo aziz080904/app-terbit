@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 29, 2024 at 10:22 AM
+-- Generation Time: Jan 02, 2025 at 05:58 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -64,6 +64,22 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `jadwals`
+--
+
+CREATE TABLE `jadwals` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
+  `waktu` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `jobs`
 --
 
@@ -110,13 +126,6 @@ CREATE TABLE `laporan` (
   `lampiran` longblob DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `laporan`
---
-
-INSERT INTO `laporan` (`id`, `nama`, `tanggal`, `catatan`, `lampiran`) VALUES
-(1, 'Khalid', '2024-12-27', 'test', 0x6c61706f72616e2f377271346d497774374367424a39354c43685145726f786a514573396948726b347379775a4644642e706466);
-
 -- --------------------------------------------------------
 
 --
@@ -154,7 +163,38 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '0001_01_01_000002_create_jobs_table', 1),
 (4, '2024_12_24_061618_create_manajemens_table', 1),
 (5, '2024_12_24_063537_add_user_id_foreign_key_to_manajemens_table', 1),
-(6, '2024_12_27_032138_add_role_to_users_table', 2);
+(6, '2024_12_27_032138_add_role_to_users_table', 2),
+(7, '2025_01_02_013714_create_jadwals_table', 3),
+(8, '2025_01_02_013821_create_notifications_table', 3),
+(9, '2025_01_02_013830_change_id_column_type_in_notifications_table', 3),
+(10, '2025_01_02_094455_add_role_to_jadwals_table', 4),
+(11, '2025_01_02_101256_add_user_id_to_jadwals_table', 5),
+(12, '2025_01_02_101916_add_user_id_and_role_to_jadwals_table', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifications`
+--
+
+CREATE TABLE `notifications` (
+  `id` char(36) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `notifiable_type` varchar(255) NOT NULL,
+  `notifiable_id` bigint(20) UNSIGNED NOT NULL,
+  `data` text NOT NULL,
+  `read_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `notifications`
+--
+
+INSERT INTO `notifications` (`id`, `type`, `notifiable_type`, `notifiable_id`, `data`, `read_at`, `created_at`, `updated_at`) VALUES
+('45785e21-85ea-45bb-9858-930dc034c084', 'App\\Notifications\\JadwalUpcomingNotification', 'App\\Models\\User', 4, '{\"jadwal_id\":3,\"message\":\"Jadwal bimbingan: Bimbingan 1 pada 02 Jan 2025 19:08\",\"link\":\"http:\\/\\/localhost:8000\\/jadwals\",\"icon\":\"fas fa-calendar-alt\"}', NULL, '2025-01-02 02:07:34', '2025-01-02 02:07:34'),
+('f8a606db-67a6-4ae5-8658-a428834dbc91', 'App\\Notifications\\JadwalUpcomingNotification', 'App\\Models\\User', 4, '{\"jadwal_id\":2,\"message\":\"Jadwal bimbingan: Bimbingan 1 pada 03 Jan 2025 08:56\",\"link\":\"http:\\/\\/localhost:8000\\/jadwals\",\"icon\":\"fas fa-calendar-alt\"}', NULL, '2025-01-02 01:54:42', '2025-01-02 01:54:42');
 
 -- --------------------------------------------------------
 
@@ -188,9 +228,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('lQyL5Z1DQ77iGTqDRVA7RQZbvhU9nLe5gv9hii0E', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidHVtTlRtaEppcW5kVVlLV3ZsS2NidVFkbmJ5SWtHNTRTbk5MWGF1ciI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7fX0=', 1735307622),
-('txBHTiNVRmDNwdTzrpfy1ECN3KW1yRmrpqcuwiTx', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YToyOntzOjY6Il90b2tlbiI7czo0MDoiYUdiOWpmYmFhYWhrdHZ1dGU1djdJVWhpWm45dUw0V3JVZDdUUkFnMiI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1735345669),
-('ykL44fQdF5ESWQO5k2BbjouvcI2HQqUvFJHmImst', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiQnhqSVdrSkZaUm91TTJGNWR2SG9yT0xHeDRmbzdidnVLV1NCdnZlTSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sYXBvcmFuL3Nob3ciO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=', 1735452064);
+('YyDjzMrnY71zeaddqx8WxedODt60JKjFKnZ8k38I', 4, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiVU8wdklvOW9yczd2WXdJaW5kMTdQVnFTZEdlVkNsWWN3UGxGWTB0dSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9kYXNoYm9hcmQiO31zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aTo0O30=', 1735789231);
 
 -- --------------------------------------------------------
 
@@ -242,6 +280,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `jadwals`
+--
+ALTER TABLE `jadwals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -272,6 +316,13 @@ ALTER TABLE `manajemens`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notifications`
+--
+ALTER TABLE `notifications`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `notifications_notifiable_type_notifiable_id_index` (`notifiable_type`,`notifiable_id`);
 
 --
 -- Indexes for table `password_reset_tokens`
@@ -305,6 +356,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `jadwals`
+--
+ALTER TABLE `jadwals`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
@@ -326,7 +383,7 @@ ALTER TABLE `manajemens`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `users`
