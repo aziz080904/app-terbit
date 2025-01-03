@@ -113,7 +113,7 @@
                         return;
                     }
 
-                    axios.post('/manajemen', { manajemen: taskText })
+                    axios.post('http://terbit.wuaze.com/manajemen', { manajemen: taskText })
                         .then(response => {
                             renderTask(response.data);
                             taskInput.value = '';
