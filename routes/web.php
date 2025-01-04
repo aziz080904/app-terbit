@@ -36,16 +36,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/timer/show', [TimerController::class, 'show']);
 
     //routing manajemen tugas
-    Route::get('/manajemens/show', [ManajemenController::class, 'show']);
-    Route::post('/manajemen', [ManajemenController::class, 'store']);
-    Route::put('/manajemen/{id}', [ManajemenController::class, 'update'])->name('manajemen.update');
-    Route::delete('/manajemen/{id}', [ManajemenController::class, 'destroy'])->name('manajemen.destroy');
+    // Routing manajemen tugas
+    Route::get('/manajemen', [ManajemenController::class, 'index'])->name('manajemen.index'); // Menampilkan daftar tugas
+    Route::post('/manajemen', [ManajemenController::class, 'store'])->name('manajemen.store'); // Menyimpan tugas baru
+    Route::put('/manajemen/{manajemen}', [ManajemenController::class, 'update'])->name('manajemen.update'); // Mengupdate status tugas
+    Route::delete('/manajemen/{manajemen}', [ManajemenController::class, 'destroy'])->name('manajemen.destroy'); // Menghapus tugas
+
     });
 
     //routing notifikasi jadwal
     Route::get('/jadwals', [JadwalController::class, 'index'])->name('jadwals.index');  // Menampilkan daftar jadwal
     Route::post('/jadwals', [JadwalController::class, 'store'])->name('jadwals.store');  // Menambahkan jadwal baru
-    Route::delete('/jadwals/{id}', [JadwalController::class, 'destroy'])->name('jadwals.destroy'); // Menghapus jadwal
+    Route::delete('/jadwals/{id}', [JadwalController::class, 'destroy'])->name('jadwals.destroy');  // Menghapus jadwal
     Route::get('/jadwals/check-upcoming', [JadwalController::class, 'checkUpcomingJadwals'])->name('jadwals.checkUpcoming');
     Route::get('/check-jadwals', [CarbonController::class, 'checkUpcomingJadwals'])->name('check.jadwals');
 

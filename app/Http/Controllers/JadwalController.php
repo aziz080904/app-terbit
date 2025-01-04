@@ -13,17 +13,17 @@ class JadwalController extends Controller
     // Menampilkan semua jadwal
     public function index()
     {
-        // Ambil user yang sedang login
-        $user = Auth::user();
+        // Ambil jadwal yang akan datang dalam 24 jam
+        $jadwals = Jadwal::where('waktu', '>', Carbon::now())
+                         ->where('waktu', '<', Carbon::now()->addDay())
+                         ->get();
 
-        // Ambil jadwal berdasarkan user ID dan role
-        $jadwals = Jadwal::where('user_id', $user->id)
-                        ->where('waktu', '>', Carbon::now())
-                        ->get();
+        // Cek jadwal mendatang dalam 2 jam
+        $this->checkUpcomingJadwals();
 
+        // Kirim data ke view
         return view('jadwals.index', compact('jadwals'));
     }
- 
 
     // Menambahkan jadwal baru
     public function store(Request $request)
@@ -35,35 +35,29 @@ class JadwalController extends Controller
             'waktu' => 'required|date',
         ]);
 
-        // Tambahkan user_id dan role ke data yang akan disimpan
-        $validated['user_id'] = Auth::id();
-
-        // Simpan jadwal
+        // Tambahkan ke database
         $jadwal = Jadwal::create($validated);
 
-        return redirect()->route('jadwals.index')->with('success', 'Jadwal berhasil ditambahkan.');
-    }
+        // Kirim notifikasi jika jadwal baru ditambahkan
+        $user = Auth::user(); // Mengambil user yang sedang login
+        $user->notify(new JadwalUpcomingNotification($jadwal)); // Memanggil notifikasi untuk jadwal yang baru
 
+        // Kirim notifikasi via session
+        $message = "Jadwal '{$jadwal->judul}' berhasil ditambahkan dan akan dimulai pada {$jadwal->waktu->format('d-m-Y H:i')}";
+        session()->flash('success', $message);
+
+        return redirect()->route('jadwals.index');
+    }
 
     // Menghapus jadwal
     public function destroy($id)
     {
-        // Cari jadwal berdasarkan ID
         $jadwal = Jadwal::findOrFail($id);
-    
-        // Pastikan hanya pemilik jadwal yang bisa menghapus
-        if ($jadwal->user_id !== Auth::id()) {
-            abort(403, 'Unauthorized action.');
-        }
-    
-        // Hapus jadwal
         $jadwal->delete();
-    
-        // Redirect dengan pesan sukses
-        return redirect()->route('jadwals.index')->with('success', 'Jadwal berhasil dihapus.');
-    }
-    
 
+        session()->flash('success', "Jadwal '{$jadwal->judul}' berhasil dihapus.");
+        return redirect()->route('jadwals.index');
+    }
 
     // Cek jadwal mendatang dalam 2 jam
     public function checkUpcomingJadwals()

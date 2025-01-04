@@ -8,51 +8,42 @@ use Illuminate\Support\Facades\Auth;
 
 class ManajemenController extends Controller
 {
-    // Tampilkan semua tugas milik user
-    public function show()
+    // Menampilkan daftar tugas
+    public function index()
     {
-        $manajemens = Manajemen::where('user_id', Auth::id())->get();
-        return view('manajemens.show', compact('manajemens'));
+        $manajemens = Manajemen::orderBy('created_at', 'desc')->get();
+        return view('manajemen.index', compact('manajemens'));
     }
 
-
-
-    // Tambahkan tugas baru
+    // Menyimpan tugas baru
     public function store(Request $request)
     {
         $request->validate([
-            'manajemen' => 'required|string|max:255',
+            'manajemen' => 'required|max:255',
         ]);
 
-        $manajemen = Auth::user()->manajemens()->create([
+        Manajemen::create([
             'manajemen' => $request->manajemen,
             'is_completed' => false,
         ]);
 
-        return response()->json($manajemen);
+        return redirect()->route('manajemen.index')->with('success', 'Task added successfully.');
     }
 
-    // Update status tugas
-    // Controller Method for Update
-public function update(Request $request, $id)
-{
-    $manajemen = Manajemen::findOrFail($id);
+    // Mengupdate status tugas (is_completed)
+    public function update(Request $request, Manajemen $manajemen)
+    {
+        $manajemen->update([
+            'is_completed' => $request->has('is_completed'),
+        ]);
 
-    // Update the task completion status
-    $manajemen->is_completed = $request->is_completed;
-    $manajemen->save();
+        return redirect()->route('manajemen.index')->with('success', 'Task updated successfully.');
+    }
 
-    return response()->json($manajemen);  // Kembalikan data task yang sudah diupdate
-}
-
-// Controller Method for Delete
-public function destroy($id)
-{
-    $manajemen = Manajemen::findOrFail($id);
-    $manajemen->delete();
-
-    return response()->json(['message' => 'Task deleted successfully']);
-}
-
-
-}
+    // Menghapus tugas
+    public function destroy(Manajemen $manajemen)
+    {
+        $manajemen->delete();
+        return redirect()->route('manajemen.index')->with('success', 'Task deleted successfully.');
+    }
+} 

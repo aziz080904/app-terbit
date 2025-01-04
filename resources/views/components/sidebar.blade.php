@@ -58,7 +58,7 @@
                   </a>
               </li>
               <li class="nav-item">
-                  <a style="color: black;" href="{{ url('manajemens/show') }}" class="nav-link">
+                  <a style="color: black;" href="{{ url('/manajemen') }}" class="nav-link">
                       <i class="nav-icon fas fa-tasks"></i> <!-- Ganti ikon dengan tasks -->
                       <p>
                           Manajemen Tugas
@@ -83,63 +83,6 @@
                   </a>
               </li>
 
-          <!-- <li class="nav-item">
-            <a style="color: black;" href="#" class="nav-link">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                Database Parkir
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              @auth
-              <li class="nav-item">
-                <a style="color: black;" href="{{ url('kendaraan/show') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Kendaraan</p>
-                </a>
-              </li>
-              @if(Auth::user()->role=='administrator')
-              <li class="nav-item">
-                <a style="color: black;" href="{{ url('transaksi/show') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Transaksi</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a style="color: black;" href="{{ url('area_parkir/show') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Area Parkir</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-          <li class="nav-item">
-              <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
-                  <p>
-                      Database Tambahan
-                      <i class="right fas fa-angle-left"></i>
-                  </p>
-              </a>
-              <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                      <a href=" {{ url('jenis/show') }} " class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Jenis Kendaraan</p>
-                      </a>
-                  </li>
-                  <li class="nav-item">
-                      <a href=" {{ url('kampus/show') }} " class="nav-link">
-                          <i class="far fa-circle nav-icon"></i>
-                          <p>Kampus</p>
-                      </a>
-                  </li>
-                  @endif
-                  @endauth
-              </ul>
-          </li> -->
           <li class="nav-item">
               <a style="color: black;" href="{{ route('logout') }}" class="nav-link"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="nav-icon fas fa-user"></i>Logout</a>

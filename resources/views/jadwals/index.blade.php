@@ -30,22 +30,18 @@
     </div>
     <br>
     <h3>Jadwal Mendatang</h3>
-        <ul>
-            @foreach ($jadwals as $jadwal)
-                <li>
-                    <strong>{{ $jadwal->judul }}</strong><br>
-                    <p>{{ $jadwal->deskripsi }}</p>
-                    <p><em>{{ \Carbon\Carbon::parse($jadwal->waktu)->format('d M Y, H:i') }}</em></p>
-
-                    <!-- Tombol Hapus -->
-                    <form action="{{ route('jadwals.destroy', $jadwal->id) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus jadwal ini?')">Hapus</button>
-                    </form>
-                </li>
-            @endforeach
-        </ul>
-
-
+    <ul>
+        @foreach ($jadwals as $jadwal)
+            <li>
+                <strong>{{ $jadwal->judul }}</strong><br>
+                <p>{{ $jadwal->deskripsi }}</p>
+                <p><em>{{ \Carbon\Carbon::parse($jadwal->waktu)->format('d M Y, H:i') }}</em></p>
+                <form action="{{ route('jadwals.destroy', $jadwal->id) }}" method="POST" style="display: inline-block;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                </form>
+            </li>
+        @endforeach
+    </ul>
 </x-layout>
